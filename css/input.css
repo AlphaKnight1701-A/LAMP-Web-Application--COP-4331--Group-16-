@@ -1,3 +1,18 @@
 @import "tailwindcss";
 
 /* Custom styles here if needed */
+@layer base {
+  body {
+    @apply bg-[#1c1c1c];
+    @apply text-yellow-400;
+  }
+  input {
+    @apply border-[#6b6b6b];
+    @apply outline-2;
+    @apply text-[#6b6b6b];
+  }
+  button {
+    @apply bg-yellow-400;
+    @apply text-white;
+  }
+}
