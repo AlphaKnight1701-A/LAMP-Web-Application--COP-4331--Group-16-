@@ -1,4 +1,4 @@
-name: "Update website from main"
+name: Update website from main
 
 on:
   push:
@@ -8,18 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps: 
-      - name: Pull from main
-        uses: actions/checkout@v4
 
-      - name: SSH into server
+    steps:
+      - name: Set up SSH
         run: |
-          ssh root@${{secrets.SSH_HOST}}
-          ${{secrets.SSH_KEY}}
-          
-      - name: Git pull
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
         run: |
-          cd /var/www/html
-          git pull origin main
-        
-      
+          ssh root@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /var/www/html
+            git pull origin main
+          EOF
