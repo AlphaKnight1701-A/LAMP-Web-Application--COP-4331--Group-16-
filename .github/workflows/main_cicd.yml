@@ -11,9 +11,6 @@ jobs:
     steps: 
       - name: Pull from main
         uses: actions/checkout@v4
-     
-      - name: Check SSH key
-        run: ssh-keygen -l -f ~/.ssh/id_ed25519
 
         # set up ssh by logging in through ssh
       - name: Set up SSH
@@ -22,7 +19,10 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          
+               
+      - name: Check SSH key
+        run: ssh-keygen -l -f ~/.ssh/id_ed25519
+        
       # ssh back in, change directory, pull from main
       - name: Git pull on server
         run: |
