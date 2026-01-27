@@ -1,0 +1,25 @@
+name: "Update website from main"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Pull from main
+        uses: actions/checkout@4
+
+      - name: SSH into server
+        run: |
+          ssh root@${{secrets.SSH_HOST}}
+          ${{secrets.SSH_KEY}}
+          
+      - name: Git pull
+        run: |
+          cd /var/www/html
+          git pull origin main
+        
+      
