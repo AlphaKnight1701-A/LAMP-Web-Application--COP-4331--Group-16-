@@ -1,44 +1,54 @@
 <?php
 
-	$inData = getRequestInfo();
-	$action = $inData["action"];
+    // Declares and Sets Up Input Data and Action Variable
+	$inputData = getRequestInfo();
+	$action = $inputData["action"];
 
-	$conn = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
+    // Declares and Sets Up Database Connection
+	$connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 
-	if($conn->connect_error)
+    // Condition Statement that Checks for Connection Error
+	if($connection->connect_error)
 	{
-		returnWithError($conn->connect_error);
+        // Returns Connection Error
+		returnWithError($connection->connect_error);
 	}
 
+    // Switch Statement that Calls Appropriate Action Function
 	switch($action)
 	{
-		case "add":
-			addContact($conn, $inData);
+		case "add": // Add Contact to DB
+			addContact($connection, $inputData);
 			break;
-		case "get":
-			getContacts($conn, $inData);
+		case "get": // Get Contacts from DB
+			getContacts($connection, $inputData);
 			break;
-		case "update":
-			updateContact($conn, $inData);
+		case "update": // Update Contact in DB
+			updateContact($connection, $inputData);
 			break;
-		case "delete":
-			deleteContact($conn, $inData);
+		case "delete": // Delete Contact in DB
+			deleteContact($connection, $inputData);
 			break;
-		default:
+		default: // All Other Actions
 			returnWithError("Invalid action");
 	}
 
-	$conn->close();
+    // Closes Database Connection
+	$connection->close();
 
-	function addContact($conn, $inData)
+    // Function that Adds Contact to DB
+	function addContact($connection, $inputData)
 	{
-		$firstName = trim($inData["firstName"]);
-		$lastName = trim($inData["lastName"]);
-		$phone = trim($inData["phone"]);
-		$email = trim($inData["email"]);
-		$userID = $inData["userID"];
 
-		$stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES (?, ?, ?, ?, ?)");
+        // Declares and Sets Up Contact Detail Variables
+		$firstName = trim($inputData["firstName"]);
+		$lastName = trim($inputData["lastName"]);
+		$phone = trim($inputData["phone"]);
+		$email = trim($inputData["email"]);
+		$userID = $inputData["userID"];
+
+		// 
+		$stmt = $connection->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES (?, ?, ?, ?, ?)");
 		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $userID);
 		if($stmt->execute())
 		{
@@ -51,11 +61,11 @@
 		$stmt->close();
 	}
 
-	function getContacts($conn, $inData)
+	function getContacts($connection, $inputData)
 	{
-		$userID = $inData["userID"];
+		$userID = $inputData["userID"];
 
-		$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email, UserID FROM Contacts WHERE UserID = ?");
+		$stmt = $connection->prepare("SELECT ID, FirstName, LastName, Phone, Email, UserID FROM Contacts WHERE UserID = ?");
 		$stmt->bind_param("i", $userID);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -81,15 +91,15 @@
 		$stmt->close();
 	}
 
-	function updateContact($conn, $inData)
+	function updateContact($connection, $inputData)
 	{
-		$id = $inData["id"];
-		$firstName = trim($inData["firstName"]);
-		$lastName = trim($inData["lastName"]);
-		$phone = trim($inData["phone"]);
-		$email = trim($inData["email"]);
+		$id = $inputData["id"];
+		$firstName = trim($inputData["firstName"]);
+		$lastName = trim($inputData["lastName"]);
+		$phone = trim($inputData["phone"]);
+		$email = trim($inputData["email"]);
 
-		$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
+		$stmt = $connection->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
 		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $id);
 		if($stmt->execute())
 		{
@@ -102,9 +112,10 @@
 		$stmt->close();
 	}
 
-	function deleteContact($conn, $inData)
+	function deleteContact($conn, $inputData)
+	ection
 	{
-		$id = $inData["id"];
+		$id = $inputData["id"];
 
 		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ?");
 		$stmt->bind_param("i", $id);
