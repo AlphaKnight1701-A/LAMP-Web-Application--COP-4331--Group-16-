@@ -6,6 +6,11 @@ let firstName = "";
 let lastName = "";
 
 function login() {
+
+    userId = 0;
+	firstName = "";
+	lastName = "";
+
     let username = document.getElementById("loginUsername").value;
     let password = document.getElementById("loginPassword").value;
 
@@ -18,6 +23,39 @@ function login() {
     }
 
     let jsonPayload = JSON.stringify(tmp);
+
+    let url = baseUrl + "/Login." + extension;
+
+    let request = new XMLHttpRequest();
+	request.open("POST", url, true);
+	request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		request.onreadystatechange = function() {
+            // Response available with HTTP status code 200
+            if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(request.responseText);
+				userId = jsonObject.id;
+		
+				if(userId < 1) {		
+					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					return;
+				}
+		
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+                // Save login state
+				// saveCookie();
+                
+                // Direct to homepage on successful login
+				window.location.href = "homepage.html";
+			}
+		};
+		request.send(jsonPayload);
+	}
+    catch(err) {
+        document.getElementById("loginResult").innerHTML = err.message;
+	}
 }
 
 function logout() {
