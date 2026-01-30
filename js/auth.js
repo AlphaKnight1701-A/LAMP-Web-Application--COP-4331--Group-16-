@@ -64,6 +64,56 @@ function login() {
 	}
 }
 
+function signup()
+{
+    let first = document.getElementById("signupFirstName").value.trim();
+    let last = document.getElementById("signupLastName").value.trim();
+    let username = document.getElementById("signupUsername").value.trim();
+    let password = document.getElementById("signupPassword").value;
+    let confirm = document.getElementById("signupConfirmPassword").value;
+    document.getElementById("signupResult").innerHTML = "";
+    if (first === "" || last === "" || username === "" || password === "" || confirm === "") {
+        document.getElementById("signupResult").innerHTML = "Please fill out all fields";
+        return;
+    }
+    if (password !== confirm) {
+        document.getElementById("signupResult").innerHTML = "Passwords do not match";
+        return;
+    }
+    let tmp =
+    {
+        firstName: first,
+        lastName: last,
+        login: username,
+        password: password
+    };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = baseUrl + "/SignUp." + extension;
+    let request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(request.responseText);
+                if (jsonObject.error && jsonObject.error !== "") {
+                    document.getElementById("signupResult").innerHTML = jsonObject.error;
+                    return;
+                }
+                document.getElementById("signupResult").innerHTML = "Account created";
+                window.location.href = "login.html";
+            }
+        };
+        request.send(jsonPayload);
+    }
+    catch(err)
+    {
+        document.getElementById("signupResult").innerHTML = err.message;
+    }
+}
+
+
 function logout() {
     // TODO: Implement function
 }
