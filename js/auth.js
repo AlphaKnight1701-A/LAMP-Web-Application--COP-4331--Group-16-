@@ -37,9 +37,14 @@ function login() {
 				userId = jsonObject.id;
 		
 				if(userId < 1) {		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("loginResult").innerHTML = "Username/Password combination is incorrect";
 					return;
 				}
+
+                if(userId == 0) {
+                    document.getElementById("loginResult").innerHTML = "No login information entered";
+					return;
+                }
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
