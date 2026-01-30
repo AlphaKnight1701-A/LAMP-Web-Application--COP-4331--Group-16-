@@ -17,6 +17,12 @@ function login() {
     // The span tag that gives messages to the user
     document.getElementById("loginResult").innerHTML = "";
 
+    // Check empty fields and disallow login
+    if (username === "" || password === "") {
+        document.getElementById("loginResult").innerHTML = "Please enter both Username and Password";
+        return;
+    }
+
     let tmp = {
         login: username,
         password: password
@@ -38,11 +44,6 @@ function login() {
 		
 				if(userId < 1) {		
 					document.getElementById("loginResult").innerHTML = "Username/Password combination is incorrect";
-					return;
-				}
-
-                if(userId == 0) {
-                    document.getElementById("loginResult").innerHTML = "No login information entered";
 					return;
                 }
 		
