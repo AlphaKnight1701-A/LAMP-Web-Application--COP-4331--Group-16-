@@ -1,4 +1,4 @@
-const baseUrl = "http://poosproject.xyz/api";
+const baseUrl = "https://poosproject.xyz/api";
 const extension = "php";
 
 let userId = 0;
