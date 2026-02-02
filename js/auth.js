@@ -122,6 +122,8 @@ function searchContact()
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
+    console.log(jsonPayload);
+    
 	let url = baseUrl + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
