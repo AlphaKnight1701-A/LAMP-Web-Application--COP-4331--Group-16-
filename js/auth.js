@@ -168,7 +168,7 @@ function saveCookie() {
 }
 
 function readCookie() {
-    userId = 1;
+    userId = -1;
 	let data = document.cookie;
 	let splits = data.split(",");
 	for(var i = 0; i < splits.length; i++) 
