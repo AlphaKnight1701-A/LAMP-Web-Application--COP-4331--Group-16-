@@ -10,7 +10,7 @@
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() 
             {
-                readCookie();
+                //readCookie();
             }, false);
         </script>
     </head>
@@ -20,7 +20,13 @@
             <h1 class = "mt-5 text-3xl font-bold">
                 Hello, <span id = "welcomeName"></span>!
             </h1>
-            <input id = "searchInput" class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
+
+            <input id = "searchText" class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
+            <button type="button" id="searchContactButton" class="buttons" onclick="getContacts();"> Search Contact </button><br />
+            <span id="contactSearchResult"></span>
+            <p id="contactList">
+            </p><br /><br />
+            
             <button class = "mt-5 px-5 rounded-2xl">
                 Add contact
             </button>
@@ -32,14 +38,6 @@
                     <button class = "px-5 rounded-2xl"> Edit </button>
                     <button class = "px-5 rounded-2xl"> Delete </button>
                 </div>
-            </div>
-            <div class = "py-3 text-3xl underline">
-                <input type="text" id="searchText" placeholder="Color To Search For"/>
-	            <button type="button" id="searchContactButton" class="buttons" onclick="getContacts();"> Search Contact </button><br />
-	            <span id="contactSearchResult"></span>
-	            <p id="contactList">
-                </p><br /><br />
-
             </div>
         </main>
     </body>
