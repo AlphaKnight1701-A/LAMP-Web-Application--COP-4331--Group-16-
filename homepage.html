@@ -4,22 +4,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="./css/output.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/auth.js"></script>
         <title> Home </title>
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() 
+            {
+                readCookie();
+            }, false);
+        </script>
     </head>
 
     <body>
         <main class = "min-h-screen flex flex-col items-center">
             <h1 class = "mt-5 text-3xl font-bold">
-                Hello, !
+                Hello, <span id = "welcomeName"></span>!
             </h1>
-            <input class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
+            <input id = "searchInput" class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
             <button class = "mt-5 px-5 rounded-2xl">
                 Add contact
             </button>
 
             <div class = "py-3 text-3xl underline"> Contacts List </div>
             <div class="flex flex-col">
-                <div class = "flex justify-evenly"> 
+                <div class = "mx-3"> 
                     First name, Last Name 
                     <button class = "px-5 rounded-2xl"> Edit </button>
                     <button class = "px-5 rounded-2xl"> Delete </button>
