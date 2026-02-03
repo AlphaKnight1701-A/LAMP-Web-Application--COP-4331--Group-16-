@@ -1,7 +1,7 @@
 const baseUrl = "https://poosproject.xyz/api";
 const extension = "php";
 
-let userId = 0;
+let userId = -1;
 let firstName = "";
 let lastName = "";
 
