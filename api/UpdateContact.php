@@ -26,6 +26,20 @@
 			returnWithError("Failed to update contact");
 		}
 
+		$sqlStatement->execute();
+
+		if ($sqlStatement->affected_rows > 0) {
+    		// Fetch the actual userID from the contact row before update
+    		$result = $connection->query("SELECT UserID FROM Contacts WHERE ID = $id");
+    		$row = $result->fetch_assoc();
+    		$userID = $row['UserID'];
+    
+    		returnWithInfo($id, $firstName, $lastName, $phone, $email, $userID);
+		} 
+		else {
+   			returnWithError("No contact found with that ID");
+		}
+
 		// Closes Statement
 		$sqlStatement->close();
         $connection->close();
@@ -59,5 +73,6 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
+
 
 ?>
