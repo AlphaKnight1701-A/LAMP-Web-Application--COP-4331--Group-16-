@@ -2,9 +2,9 @@
 
     $inputData = getRequestInfo();
     $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
-	if( $conn->connect_error )
+	if( $connection->connect_error )
 	{
-		returnWithError( $conn->connect_error );
+		returnWithError( $connection->connect_error );
 	}
     // Declares and Sets Up UserID Variable from inputData
 	$userID = $inputData["userID"];
@@ -77,3 +77,4 @@
 
 
 ?>
+
