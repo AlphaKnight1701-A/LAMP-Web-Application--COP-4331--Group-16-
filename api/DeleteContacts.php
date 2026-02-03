@@ -1,13 +1,10 @@
 <?php
+LAMP-Web-Application--COP-4331--Group-16-\api\DeleteContacts.php
 <?php
 
     $inData = getRequestInfo();
     
-    $firstName = trim($inData["firstName"]);
-    $lastName = trim($inData["lastName"]);
-    $email = trim($inData["email"]);
-    $phone = trim($inData["phone"]);
-    $userId = $inData["userId"];
+    $id = $inData["id"];
 
     $conn = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
     if ($conn->connect_error) 
@@ -16,12 +13,20 @@
     } 
     else
     {
-        $stmt = $conn->prepare("INSERT INTO Contacts (UserID, FirstName, LastName, Email, Phone) VALUES(?,?,?,?,?)");
-        $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
-        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ?");
+        $stmt->bind_param("i", $id);
+        
+        if($stmt->execute())
+        {
+            returnWithError("");
+        }
+        else
+        {
+            returnWithError("Failed to delete contact");
+        }
+        
         $stmt->close();
         $conn->close();
-        returnWithError("");
     }
 
     function getRequestInfo()
