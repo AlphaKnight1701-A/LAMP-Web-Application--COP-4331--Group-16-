@@ -1,21 +1,22 @@
 <?php
+<?php
 
     $inData = getRequestInfo();
     
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $email = $inData["email"];
-    $phone = $inData["phone"];
+    $firstName = trim($inData["firstName"]);
+    $lastName = trim($inData["lastName"]);
+    $email = trim($inData["email"]);
+    $phone = trim($inData["phone"]);
     $userId = $inData["userId"];
 
-    $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+    $conn = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
     if ($conn->connect_error) 
     {
         returnWithError( $conn->connect_error );
     } 
     else
     {
-        $stmt = $conn->prepare("INSERT INTO Contacts (UserId, FirstName, LastName, Email, Phone) VALUES(?,?,?,?,?)");
+        $stmt = $conn->prepare("INSERT INTO Contacts (UserID, FirstName, LastName, Email, Phone) VALUES(?,?,?,?,?)");
         $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
         $stmt->execute();
         $stmt->close();
