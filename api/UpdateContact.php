@@ -14,18 +14,6 @@
 		$sqlStatement = $connection->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
 		$sqlStatement->bind_param("ssssi", $firstName, $lastName, $phone, $email, $id);
 
-		// Condition Statement that Checks if Execution was Successful
-		if($sqlStatement->execute())
-		{
-			// Returns Updated Contact Info
-			returnWithInfo($id, $firstName, $lastName, $phone, $email, 0);
-		}
-		else // Execution Failed
-		{
-			// Returns Error Message
-			returnWithError("Failed to update contact");
-		}
-
 		$sqlStatement->execute();
 
 		if ($sqlStatement->affected_rows > 0) {
@@ -76,3 +64,4 @@
 
 
 ?>
+
