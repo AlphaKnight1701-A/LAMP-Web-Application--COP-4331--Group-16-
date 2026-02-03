@@ -1,5 +1,8 @@
 <?php
 
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
     $inputData = getRequestInfo();
     $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 	if( $connection->connect_error )
@@ -77,4 +80,5 @@
 
 
 ?>
+
 
