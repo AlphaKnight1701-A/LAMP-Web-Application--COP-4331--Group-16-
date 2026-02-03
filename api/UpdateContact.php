@@ -1,67 +1,83 @@
 <?php
 
-        $inputData = getRequestInfo();
-        $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
+    $inputData = getRequestInfo();
+    $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 
-        // Declares and Sets Up Contact Detail Variables
-		$id = $inputData["id"];
-		$firstName = trim($inputData["firstName"]);
-		$lastName = trim($inputData["lastName"]);
-		$phone = trim($inputData["phone"]);
-		$email = trim($inputData["email"]);
+    // Validate required fields
+    if (
+        !isset($inputData["firstName"]) ||
+        !isset($inputData["lastName"]) ||
+        !isset($inputData["email"]) ||
+        !isset($inputData["phone"]) ||
+        !isset($inputData["userId"])
+    ) {
+        returnWithError("Missing required fields");
+        exit();
+    }
 
-		// Sets, Prepares, and Executes Contact Update SQL Statement to DB
-		$sqlStatement = $connection->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
-		$sqlStatement->bind_param("ssssi", $firstName, $lastName, $phone, $email, $id);
+    // Extract and sanitize
+    $firstName = trim($inputData["firstName"]);
+    $lastName  = trim($inputData["lastName"]);
+    $email     = trim($inputData["email"]);
+    $phone     = trim($inputData["phone"]);
+    $userId    = $inputData["userId"];
 
-		$sqlStatement->execute();
+    if ($connection->connect_error)
+    {
+        returnWithError($connection->connect_error);
+    }
+    else
+    {
+        // Prepare INSERT
+        $sqlStatement = $connection->prepare(
+            "INSERT INTO Contacts (UserID, FirstName, LastName, Email, Phone) VALUES (?, ?, ?, ?, ?)"
+        );
 
-		if ($sqlStatement->affected_rows > 0) {
-    		// Fetch the actual userID from the contact row before update
-    		$result = $connection->query("SELECT UserID FROM Contacts WHERE ID = $id");
-    		$row = $result->fetch_assoc();
-    		$userID = $row['UserID'];
-    
-    		returnWithInfo($id, $firstName, $lastName, $phone, $email, $userID);
-		} 
-		else {
-   			returnWithError("No contact found with that ID");
-		}
+        $sqlStatement->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
 
-		// Closes Statement
-		$sqlStatement->close();
+        if (!$sqlStatement->execute()) {
+            returnWithError("SQL Error: " . $sqlStatement->error);
+            exit();
+        }
+
+        // Get the new contact ID
+        $newId = $connection->insert_id;
+
+        // Return success object
+        returnWithInfo($newId, $firstName, $lastName, $phone, $email, $userId);
+
+        $sqlStatement->close();
         $connection->close();
+    }
 
-    // Function that Retrieves Input Data from Request
-	function getRequestInfo()
-	{
-		// Retrieve, Decodes, and Returns JSON Input Data
-		return json_decode(file_get_contents('php://input'), true);
-	}
+    function getRequestInfo()
+    {
+        return json_decode(file_get_contents('php://input'), true);
+    }
 
-    // Function that Returns with Contact Info
-	function returnWithInfo($id, $firstName, $lastName, $phone, $email, $userID)
-	{
-		// Constructs and Sends Contact Info JSON Object
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","phone":"' . $phone . '","email":"' . $email . '","userID":' . $userID . ',"error":""}';
-		sendResultInfoAsJson($retValue);
-	}
+    function sendResultInfoAsJson($obj)
+    {
+        header('Content-type: application/json');
+        echo $obj;
+    }
+
+    function returnWithInfo($id, $firstName, $lastName, $phone, $email, $userId)
+    {
+        $retValue = '{"id":' . $id .
+                    ',"firstName":"' . $firstName .
+                    '","lastName":"' . $lastName .
+                    '","phone":"' . $phone .
+                    '","email":"' . $email .
+                    '","userID":' . $userId .
+                    ',"error":""}';
+
+        sendResultInfoAsJson($retValue);
+    }
 
     function returnWithError($err)
-	{
-		// Constructs and Sends Error JSON Object
-		$retValue = '{"id":0,"error":"' . $err . '"}';
-		sendResultInfoAsJson($retValue);
-	}
-
-    // Function that Sends Result Info as JSON
-	function sendResultInfoAsJson($obj)
-	{
-		// Sets Header and Echoes JSON Object
-		header('Content-type: application/json');
-		echo $obj;
-	}
-
+    {
+        $retValue = '{"error":"' . $err . '"}';
+        sendResultInfoAsJson($retValue);
+    }
 
 ?>
-
