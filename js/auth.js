@@ -150,6 +150,7 @@ function searchContact()
 				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
+		console.log(contactList)
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -167,13 +168,13 @@ function saveCookie() {
 	let minutes = 20;
 	let dt = new Date();
 	dt.setTime(dt.getTime() + (minutes * 60 * 1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + dt.toGMTString();
+	document.cookie = "firstName=" + firstName + ";lastName=" + lastName + ";userId=" + userId + ";expires=" + dt.toGMTString() + ";path=/";
 }
 
 function readCookie() {
     userId = -1;
 	let data = document.cookie;
-	let splits = data.split(",");
+	let splits = data.split(";");
 	for(var i = 0; i < splits.length; i++) 
 	{
 		let thisOne = splits[i].trim();
@@ -199,6 +200,6 @@ function readCookie() {
 	}
 	else
 	{
-//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
