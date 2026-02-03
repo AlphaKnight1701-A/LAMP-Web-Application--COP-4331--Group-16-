@@ -51,7 +51,7 @@ function login() {
 				lastName = jsonObject.lastName;
 
                 // Save login state
-				// saveCookie();
+				saveCookie();
                 
                 // Direct to homepage on successful login
 				window.location.href = "homepage.html";
@@ -164,7 +164,10 @@ function logout() {
 }
 
 function saveCookie() {
-    // TODO: Implement function
+	let minutes = 20;
+	let dt = new Date();
+	dt.setTime(dt.getTime() + (minutes * 60 * 1000));
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + dt.toGMTString();
 }
 
 function readCookie() {
