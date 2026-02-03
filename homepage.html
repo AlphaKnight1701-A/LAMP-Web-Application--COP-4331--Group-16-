@@ -16,18 +16,34 @@
     </head>
 
     <body>
+        <header class="text-yellow-400 shadow-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo -->
+                <div class="text-xl font-semibold">
+                    LAMP Project
+                </div>
+                <!-- Navigation -->
+                <nav class="flex items-center space-x-6">
+                    <a href="index.html" class="text-slate-300 hover:text-white transition">Home</a>
+                    <a href="#" class="text-slate-300 hover:text-white transition">About</a>
+                    <a href="login.html" class="rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition">Log Out</a>
+                </nav>
+            </div>
+            </div>
+        </header>
         <main class = "min-h-screen flex flex-col items-center">
             <h1 class = "mt-5 text-3xl font-bold">
                 Hello, <span id = "signupFirstName"></span>!
             </h1>
 
             <input id = "searchText" class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
-            <button type="button" id="contactSearchResult" class="buttons" onclick="searchContact();"> Search Contact </button><br />
+            <button type="button" id="contactSearchResult" class="mt-5 rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition" onclick="searchContact();"> Search Contact </button><br />
             <span id="contactSearchResult"></span>
             <p id="contactList">
             </p><br /><br />
 
-            <button class = "mt-5 px-5 rounded-2xl">
+            <button class = "rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition">
                 Add contact
             </button>
 
@@ -35,8 +51,8 @@
             <div class="flex flex-col">
                 <div class = "mx-3"> 
                     First name, Last Name 
-                    <button class = "px-5 rounded-2xl"> Edit </button>
-                    <button class = "px-5 rounded-2xl"> Delete </button>
+                    <button class = "rounded-md px-4 py-1 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition"> Edit </button>
+                    <button class = "rounded-md px-4 py-1 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition"> Delete </button>
                 </div>
             </div>
         </main>
