@@ -1,63 +1,58 @@
 <?php
 
-    $inputData = getRequestInfo();
-    $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-    // Validate required field
-    if (!isset($inputData["id"])) {
-        returnWithError("Missing contact ID");
-        exit();
-    }
+$inputData = getRequestInfo();
 
-    $id = $inputData["id"];
+if (!isset($inputData["id"])) {
+    returnWithError("Missing id");
+    exit();
+}
 
-    if ($connection->connect_error)
-    {
-        returnWithError($connection->connect_error);
-    }
-    else
-    {
-        // Prepare DELETE
-        $sqlStatement = $connection->prepare("DELETE FROM Contacts WHERE ID = ?");
-        $sqlStatement->bind_param("i", $id);
+$id = $inputData["id"];
 
-        if (!$sqlStatement->execute()) {
-            returnWithError("SQL Error: " . $sqlStatement->error);
-            exit();
-        }
+$connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 
-        // Check if a row was actually deleted
-        if ($sqlStatement->affected_rows > 0) {
-            returnWithInfo($id);
-        } else {
-            returnWithError("No contact found with that ID");
-        }
+if ($connection->connect_error) {
+    returnWithError($connection->connect_error);
+    exit();
+}
 
-        $sqlStatement->close();
-        $connection->close();
-    }
+$sqlStatement = $connection->prepare("DELETE FROM Contacts WHERE ID = ?");
+$sqlStatement->bind_param("i", $id);
 
-    function getRequestInfo()
-    {
-        return json_decode(file_get_contents('php://input'), true);
-    }
+if (!$sqlStatement->execute()) {
+    returnWithError("SQL Error: " . $sqlStatement->error);
+    exit();
+}
 
-    function sendResultInfoAsJson($obj)
-    {
-        header('Content-type: application/json');
-        echo $obj;
-    }
+if ($sqlStatement->affected_rows > 0) {
+    returnWithInfo($id);
+} else {
+    returnWithError("No contact found with that ID");
+}
 
-    function returnWithInfo($id)
-    {
-        $retValue = '{"id":' . $id . ',"error":""}';
-        sendResultInfoAsJson($retValue);
-    }
+$sqlStatement->close();
+$connection->close();
 
-    function returnWithError($err)
-    {
-        $retValue = '{"error":"' . $err . '"}';
-        sendResultInfoAsJson($retValue);
-    }
+function getRequestInfo() {
+    return json_decode(file_get_contents('php://input'), true);
+}
+
+function sendResultInfoAsJson($obj) {
+    header('Content-type: application/json');
+    echo $obj;
+}
+
+function returnWithInfo($id) {
+    $retValue = '{"id":' . $id . ',"error":""}';
+    sendResultInfoAsJson($retValue);
+}
+
+function returnWithError($err) {
+    $retValue = '{"error":"' . $err . '"}';
+    sendResultInfoAsJson($retValue);
+}
 
 ?>
