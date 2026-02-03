@@ -1,32 +1,40 @@
 <?php
-LAMP-Web-Application--COP-4331--Group-16-\api\DeleteContacts.php
-<?php
 
-    $inData = getRequestInfo();
-    
-    $id = $inData["id"];
+    $inputData = getRequestInfo();
+    $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 
-    $conn = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
-    if ($conn->connect_error) 
+    // Validate required field
+    if (!isset($inputData["id"])) {
+        returnWithError("Missing contact ID");
+        exit();
+    }
+
+    $id = $inputData["id"];
+
+    if ($connection->connect_error)
     {
-        returnWithError( $conn->connect_error );
-    } 
+        returnWithError($connection->connect_error);
+    }
     else
     {
-        $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ?");
-        $stmt->bind_param("i", $id);
-        
-        if($stmt->execute())
-        {
-            returnWithError("");
+        // Prepare DELETE
+        $sqlStatement = $connection->prepare("DELETE FROM Contacts WHERE ID = ?");
+        $sqlStatement->bind_param("i", $id);
+
+        if (!$sqlStatement->execute()) {
+            returnWithError("SQL Error: " . $sqlStatement->error);
+            exit();
         }
-        else
-        {
-            returnWithError("Failed to delete contact");
+
+        // Check if a row was actually deleted
+        if ($sqlStatement->affected_rows > 0) {
+            returnWithInfo($id);
+        } else {
+            returnWithError("No contact found with that ID");
         }
-        
-        $stmt->close();
-        $conn->close();
+
+        $sqlStatement->close();
+        $connection->close();
     }
 
     function getRequestInfo()
@@ -34,16 +42,22 @@ LAMP-Web-Application--COP-4331--Group-16-\api\DeleteContacts.php
         return json_decode(file_get_contents('php://input'), true);
     }
 
-    function sendResultInfoAsJson( $obj )
+    function sendResultInfoAsJson($obj)
     {
         header('Content-type: application/json');
         echo $obj;
     }
-    
-    function returnWithError( $err )
+
+    function returnWithInfo($id)
+    {
+        $retValue = '{"id":' . $id . ',"error":""}';
+        sendResultInfoAsJson($retValue);
+    }
+
+    function returnWithError($err)
     {
         $retValue = '{"error":"' . $err . '"}';
-        sendResultInfoAsJson( $retValue );
+        sendResultInfoAsJson($retValue);
     }
-    
+
 ?>
