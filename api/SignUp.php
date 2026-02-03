@@ -48,14 +48,12 @@
 
     function sendResultInfoAsJson( $obj )
 	{
-        console.log("Sending JSON response: " . $obj);
 		header('Content-type: application/json');
 		echo $obj;
 	}
 
 	function returnWithError( $err )
 	{
-        console.log("Error: " . $err);
 		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
@@ -63,7 +61,6 @@
     function returnWithInfo( $firstName, $lastName, $id, $DateCreated )
 	{
 		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","dateCreated":"' . $DateCreated . '","error":""}';
-		console.log("Return Info: " . $retValue);
         sendResultInfoAsJson( $retValue );
 	}
 

@@ -95,13 +95,18 @@ function signup()
     try
     {
         request.onreadystatechange = function() {
+			if(this.readyState != 4) return;
+
             console.log(this.readyState);
+			console.log(this.status);
+
             if (this.status == 200) {
                 let jsonObject = JSON.parse(request.responseText);
-                // if (jsonObject.error && jsonObject.error !== "") {
-                //     document.getElementById("signupResult").innerHTML = jsonObject.error;
-                //     return;
-                // }
+                if (jsonObject.error && jsonObject.error !== "") {
+					console.log(jsonObject.error);
+                    document.getElementById("signupResult").innerHTML = jsonObject.error;
+                    return;
+                }
                 document.getElementById("signupResult").innerHTML = "Account created";
                 window.location.href = "login.html";
             }
