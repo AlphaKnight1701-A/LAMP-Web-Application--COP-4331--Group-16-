@@ -2,6 +2,10 @@
 
     $inputData = getRequestInfo();
     $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
+	if( $conn->connect_error )
+	{
+		returnWithError( $conn->connect_error );
+	}
     // Declares and Sets Up UserID Variable from inputData
 	$userID = $inputData["userID"];
 
@@ -70,5 +74,6 @@
 		$retValue = '{"id":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson($retValue);
 	}
+
 
 ?>
