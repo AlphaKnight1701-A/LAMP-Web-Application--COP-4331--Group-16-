@@ -196,14 +196,23 @@ function readCookie() {
 		}
 	}
 	
+	// Not logged in
 	if( userId < 0 )
 	{
-		// Redirect back to login page with login error
-		window.location.href = "login.html?error=not_logged_in";
-		console.log("Not logged in");
+		// Trying to access homepage while logged out
+		if(window.location.pathname.endsWith("homepage.html")) {
+			// Redirect back to login page with login error
+			window.location.href = "login.html?error=not_logged_in";
+			console.log("Not logged in");
+		}
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		// Logged in on home page
+		if(window.location.pathname.endsWith("index.html")) {
+			document.getElementById("homeButton").innerHTML = "Go to Homepage";
+			document.getElementById("homeButtonLink").href = "homepage.html";
+			document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		}
 	}
 }
