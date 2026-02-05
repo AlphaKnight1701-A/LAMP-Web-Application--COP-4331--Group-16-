@@ -170,7 +170,7 @@ function saveCookie() {
 	let minutes = 20;
 	let dt = new Date();
 	dt.setTime(dt.getTime() + (minutes * 60 * 1000));
-	document.cookie = "firstName=" + firstName + ";lastName=" + lastName + ";userId=" + userId + ";expires=" + dt.toGMTString() + ";path=/";
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + dt.toGMTString();
 	console.log("saveCookie() has been run");
 	console.log(`Cookie: ${document.cookie}`);
 }
@@ -178,7 +178,7 @@ function saveCookie() {
 function readCookie() {
     userId = -1;
 	let data = document.cookie;
-	let splits = data.split(";");
+	let splits = data.split(",");
 	for(var i = 0; i < splits.length; i++) 
 	{
 		let thisOne = splits[i].trim();
