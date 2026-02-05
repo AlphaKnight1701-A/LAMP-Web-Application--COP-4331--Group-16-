@@ -5,19 +5,6 @@ let userId = -1;
 let firstName = "";
 let lastName = "";
 
-// Not logged in check for login page
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const error = params.get("error");
-
-  if (error === "not_logged_in") {
-    const loginResult = document.getElementById("loginResult");
-    if (loginResult) {
-      loginResult.innerHTML = "Please log in first.";
-    }
-  }
-});
-
 function login() {
 
     userId = 0;

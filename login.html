@@ -6,6 +6,19 @@
   <script type="text/javascript" src="js/auth.js"></script>
   <link href="./css/output.css" rel="stylesheet">
   <title>Login</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const error = params.get("error");
+
+      if (error === "not_logged_in") {
+        const loginResult = document.getElementById("loginResult");
+        if (loginResult) {
+          loginResult.innerHTML = "Please log in first.";
+        }
+      }
+    });
+  </script>
 </head>
 <body>
   <header class="bg-[#1c1c1c] text-yellow-400 shadow-md sticky top-0 z-50">
