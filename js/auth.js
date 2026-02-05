@@ -201,7 +201,7 @@ function readCookie() {
 	if( userId < 0 )
 	{
 		// Redirect back to login page with login error
-		window.location.href = "login.html?error=not_logged_in";
+		// window.location.href = "login.html?error=not_logged_in";
 		console.log("Not logged in");
 	}
 	else
