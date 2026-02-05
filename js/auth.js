@@ -209,7 +209,7 @@ function readCookie() {
 	else
 	{
 		// Logged in on home page
-		if(window.location.pathname.endsWith("index.html")) {
+		if(window.pathname === "/" || window.location.pathname.endsWith("index.html")) {
 			document.getElementById("homeButton").innerHTML = "Go to Homepage";
 			document.getElementById("homeButtonLink").href = "homepage.html";
 			document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
