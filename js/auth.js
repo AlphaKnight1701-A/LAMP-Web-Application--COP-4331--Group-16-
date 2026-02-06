@@ -114,23 +114,44 @@ function signup()
         document.getElementById("signupResult").innerHTML = err.message;
     }
 }
-function parseContact(contactList) {
+// parse the contact list to send out lists of user contact information
+function parseContact(contactList) 
+{
 	
-	let list = "";
-	for( let i=0; i<contactList.length; i++ )
+	let firstName = [];
+	let lastName = [];
+	let phone = [];
+	let email = [];
+	
+	for( let i=0; i<contactList.length; i++ ) 
 	{
-		firstName = contactList[i].firstName;
-		lastName = contactList[i].lastName;
-		phone = contactList[i].phone;
-		email = contactList[i].email;
-
-		list += contactList[i].firstName + " "
-		+ contactList[i].lastName +
-		" - Phone: " + phone +
-		", Email: " + email +
-		"<br />\r\n";
+		firstName.push(contactList[i].firstName);
+		lastName.push(contactList[i].lastName);
+		phone.push(contactList[i].phone);
+		email.push(contactList[i].email);
 	}
+
 	return list;
+}
+// build table to list contacts on the homepage
+function buildTable(firstName, lastName, phone, email) 
+{
+	// table header
+	let table = "<table><tr><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th></tr>";
+	
+	// building each row of the table with contact information
+	for(let i = 0; i < firstName.length; i++) 
+	{
+		table += "<tr><td>" +
+		firstName[i] + "</td><td>" +
+		lastName[i] + "</td><td>" +
+		phone[i] + "</td><td>" +
+		email[i] + "</td></tr>";
+	}
+
+	// ending the table
+	table += "</table>";
+	return table;
 }
 function searchContact()
 {
@@ -155,7 +176,9 @@ function searchContact()
 			{
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
-				document.getElementsByTagName("p")[0].innerHTML = parseContact(jsonObject.results);
+
+				// building the table with the information retrieved
+				document.getElementsByTagName("p")[0].innerHTML = buildTable(parseContact(jsonObject.results));
 			}
 		};
 		console.log(contactList)
