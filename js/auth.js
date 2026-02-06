@@ -178,7 +178,14 @@ function searchContact()
 				let jsonObject = JSON.parse( xhr.responseText );
 
 				// building the table with the information retrieved
-				document.getElementsByTagName("p")[0].innerHTML = buildTable(parseContact(jsonObject.results));
+				let contactInfo = parseContact(jsonObject.results);
+				document.getElementsByTagName("p")[0].innerHTML = 
+				buildTable(
+					contactInfo.firstName, 
+					contactInfo.lastName, 
+					contactInfo.phone, 
+					contactInfo.email
+				);
 			}
 		};
 		console.log(contactList)
