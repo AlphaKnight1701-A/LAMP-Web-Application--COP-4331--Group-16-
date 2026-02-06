@@ -198,7 +198,7 @@ function searchContact()
 	
 }
 
-export function logout() {
+function logout() {
 	// Expiry date is UNIX epoch
     document.cookie = "firstName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 	// Go to index
@@ -237,7 +237,7 @@ function readCookie() {
 }
 
 // Helper function for components like app-header
-export function isLoggedIn() {
+function isLoggedIn() {
 	readCookie(); // fills global userId, firstName, and lastName
 	return userId >= 0;
 }
