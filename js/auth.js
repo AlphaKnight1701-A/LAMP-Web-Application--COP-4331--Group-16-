@@ -234,9 +234,16 @@ function readCookie() {
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
-	// Not logged in
-	if( userId < 0 )
+}
+
+// Helper function for components like app-header
+function isLoggedIn() {
+	readCookie(); // fills global userId, firstName, and lastName
+	return userId >= 0;
+}
+
+function checkLogin() {
+	if(!isLoggedIn())
 	{
 		// Trying to access homepage while logged out
 		if(window.location.pathname.endsWith("homepage.html")) {
