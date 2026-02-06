@@ -256,8 +256,14 @@ function checkLogin() {
 	{
 		// Logged in on home page
 		if(window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
-			document.getElementById("homeButton").innerHTML = "Go to Homepage";
-			document.getElementById("homeButtonLink").href = "homepage.html";
+			// Change login button to logout
+			document.getElementById("loginButton").innerHTML = "Logout";
+			document.getElementById("loginButtonLink").href = "javascript:void(0)"; // Don't link to any page
+			document.getElementById("loginButtonLink").onclick = "logout();"; // Logout when pressed
+
+			// Change signup button to homepage
+			document.getElementById("signupButton").innerHTML = "Go to Homepage";
+			document.getElementById("signupButtonLink").href = "homepage.html";
 			document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 		}
 	}
