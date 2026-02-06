@@ -114,6 +114,15 @@ function signup()
         document.getElementById("signupResult").innerHTML = err.message;
     }
 }
+function parseContact(contactList) {
+	
+	let list = "";
+	for( let i=0; i<contactList.length; i++ )
+	{
+		list += contactList[i].firstName + " " + contactList[i].lastName + "<br />\r\n";
+	}
+	return list;
+}
 function searchContact()
 {
 	let srch = document.getElementById("contactList").value;
@@ -149,7 +158,7 @@ function searchContact()
 					}
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
+				document.getElementsByTagName("p")[0].innerHTML = parseContact(contactList);
 			}
 		};
 		console.log(contactList)
