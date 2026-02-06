@@ -257,9 +257,9 @@ function checkLogin() {
 		// Logged in on home page
 		if(window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
 			// Change login button to logout
-			document.getElementById("loginButton").innerHTML = "Logout";
-			document.getElementById("loginButtonLink").href = "javascript:void(0)"; // Don't link to any page
-			document.getElementById("loginButton").onclick = () => {
+			document.getElementById("homeLoginButton").innerHTML = "Logout";
+			document.getElementById("homeLoginButtonLink").href = "javascript:void(0)"; // Don't link to any page
+			document.getElementById("homeLoginButton").onclick = () => {
 				logout();
 			};
 
