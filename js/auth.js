@@ -199,7 +199,9 @@ function searchContact()
 }
 
 function logout() {
+	// Expiry date is UNIX epoch
     document.cookie = "firstName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+	// Go to index
 	window.location.href = "/";
 }
 
