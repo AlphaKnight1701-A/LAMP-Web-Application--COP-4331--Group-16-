@@ -259,11 +259,15 @@ function checkLogin() {
 			// Change login button to logout
 			document.getElementById("loginButton").innerHTML = "Logout";
 			document.getElementById("loginButtonLink").href = "javascript:void(0)"; // Don't link to any page
-			document.getElementById("loginButton").onclick = "logout();"; // Logout when pressed
+			document.getElementById("loginButton").onclick = () => {
+				logout();
+			};
 
 			// Change signup button to homepage
 			document.getElementById("signupButton").innerHTML = "Go to Homepage";
 			document.getElementById("signupButtonLink").href = "homepage.html";
+
+			// Show username
 			document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 		}
 	}
