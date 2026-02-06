@@ -131,7 +131,7 @@ function parseContact(contactList)
 		email.push(contactList[i].email);
 	}
 
-	return list;
+	return {firstName, lastName, phone, email};
 }
 // build table to list contacts on the homepage
 function buildTable(firstName, lastName, phone, email) 
