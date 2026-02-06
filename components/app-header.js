@@ -1,5 +1,3 @@
-import { isLoggedIn, logout } from "../js/auth.js";
-
 class AppHeader extends HTMLElement {
     connectedCallback() {
         this.render();
