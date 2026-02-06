@@ -237,7 +237,7 @@ function readCookie() {
 }
 
 // Helper function for components like app-header
-function isLoggedIn() {
+export function isLoggedIn() {
 	readCookie(); // fills global userId, firstName, and lastName
 	return userId >= 0;
 }
