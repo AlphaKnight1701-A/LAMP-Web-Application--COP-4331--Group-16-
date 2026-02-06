@@ -159,7 +159,7 @@ function searchContact()
 					}
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = parseContact(contactList);
+				document.getElementsByTagName("p")[0].innerHTML = parseContact(jsonObject.results);
 			}
 		};
 		console.log(contactList)
