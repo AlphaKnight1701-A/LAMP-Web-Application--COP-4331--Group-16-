@@ -119,6 +119,7 @@ function parseContact(contactList) {
 	let list = "";
 	for( let i=0; i<contactList.length; i++ )
 	{
+		console.log(JSON.stringify(contactList[i]));
 		list += contactList[i].firstName + " " + contactList[i].lastName + "<br />\r\n";
 	}
 	return list;
