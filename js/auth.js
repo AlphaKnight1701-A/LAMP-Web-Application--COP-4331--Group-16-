@@ -119,8 +119,16 @@ function parseContact(contactList) {
 	let list = "";
 	for( let i=0; i<contactList.length; i++ )
 	{
-		console.log(JSON.stringify(contactList[i]));
-		list += contactList[i].firstName + " " + contactList[i].lastName + "<br />\r\n";
+		firstName = contactList[i].firstName;
+		lastName = contactList[i].lastName;
+		phone = contactList[i].phone;
+		email = contactList[i].email;
+
+		list += contactList[i].firstName + " "
+		+ contactList[i].lastName +
+		" - Phone: " + phone +
+		", Email: " + email +
+		"<br />\r\n";
 	}
 	return list;
 }
@@ -129,8 +137,6 @@ function searchContact()
 	let srch = document.getElementById("contactList").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
-	let contactList = "";
-
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
@@ -149,16 +155,6 @@ function searchContact()
 			{
 				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					contactList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
-				}
-				
 				document.getElementsByTagName("p")[0].innerHTML = parseContact(jsonObject.results);
 			}
 		};
