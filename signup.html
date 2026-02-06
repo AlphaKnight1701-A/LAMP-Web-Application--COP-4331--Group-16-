@@ -4,26 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="text/javascript" src="js/auth.js"></script>
+  <script type="module" src="components/app-header.js"></script>
   <link href="./css/output.css" rel="stylesheet" />
   <title>Sign up</title>
 </head>
 
 <body class="text-neutral-100">
-  <header class="bg-[#1c1c1c] text-yellow-400 shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex h-16 items-center justify-between">
-        <div class="text-xl font-semibold">
-          LAMP Project
-        </div>
-        <nav class="flex items-center space-x-6">
-          <a href="index.html" class="text-slate-300 hover:text-white transition">Home</a>
-          <a href="#" class="text-slate-300 hover:text-white transition">About</a>
-          <a href="login.html" class="rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition">Login</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
+  <app-header></app-header>
   <main class="min-h-screen flex items-center justify-center p-6">
     <div class="w-full max-w-md bg-[#2b2b2b] p-8 rounded-2xl">
       <h1 class="text-2xl font-bold mb-6">Sign up</h1>
