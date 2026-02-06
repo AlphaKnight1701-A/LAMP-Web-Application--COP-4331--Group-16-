@@ -19,10 +19,8 @@
     <body>
         <app-header></app-header>
         <main class = "min-h-screen flex flex-col items-center">
-            <h1 class = "mt-5 text-3xl font-bold">
-                Hello, <p id = "First"></p>!
-            </h1>
-
+            <!-- Filled in by checkLogin() -->
+            <h1 class = "mt-5 text-3xl font-bold" id="firstName"></h1>
             <input id = "searchText" class = "mt-5 px-5 py-3 rounded-2xl" type = "text" placeholder="Search Contact"/>
             <button type="button" id="contactSearchResult" class="mt-5 rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition" onclick="searchContact();"> Search Contact </button><br />
             <span id="contactSearchResult"></span>

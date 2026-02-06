@@ -254,7 +254,7 @@ function checkLogin() {
 	}
 	else
 	{
-		// Logged in on home page
+		// Logged in on index page
 		if(window.location.pathname === "/" || window.location.pathname.endsWith("index.html")) {
 			// Change login button to logout
 			document.getElementById("homeLoginButton").innerHTML = "Logout";
@@ -270,5 +270,12 @@ function checkLogin() {
 			// Show username
 			document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
 		}
+
+		// Logged in on homepage
+		if(window.location.pathname.endsWith("homepage.html")) {
+			// Show first name
+			document.getElementById("firstName").innerHTML = `Hello, ${firstName}!`;
+		} 
+
 	}
 }
