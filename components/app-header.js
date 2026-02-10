@@ -17,7 +17,7 @@ class AppHeader extends HTMLElement {
                     <!-- Navigation -->
                     <nav class="flex items-center space-x-6">
                         <a href="index.html" class="text-slate-300 hover:text-white transition">Home</a>
-                        <a href="javascript:void(0);" class="text-slate-300 hover:text-white transition">About</a>
+                        <a href="about.html" class="text-slate-300 hover:text-white transition">About</a>
                         <a href="${loggedIn ? "javascript:void(0);" : "login.html"}" class="rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition" id="loginButton">
                             ${loggedIn ? "Logout" : "Login"}
                         </a>
