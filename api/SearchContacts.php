@@ -28,7 +28,7 @@
                 $searchCount++;
                 $searchResults .= 
                     '{id":"' . $row["ID"] .
-                    '{"firstName":"' . $row["FirstName"] .
+                    '"firstName":"' . $row["FirstName"] .
                     '","lastName":"' . $row["LastName"] .
                     '","phone":"' . $row["Phone"] .
                     '","email":"' . $row["Email"] .
