@@ -1,6 +1,3 @@
-const baseUrl = "https://poosproject.xyz/api";
-const extension = "php";
-
 // parse the contact list to send out lists of user contact information
 function parseContact(contactList) 
 {
