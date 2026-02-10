@@ -135,7 +135,7 @@ function parseContact(contactList)
 	return {contactId, firstName, lastName, phone, email};
 }
 // build table to list contacts on the homepage
-function buildTable(firstName, lastName, phone, email) 
+function buildTable(contactId, firstName, lastName, phone, email) 
 {
 	// table header
 	let table = "<table><tr><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Delete</th></tr>";
@@ -143,7 +143,7 @@ function buildTable(firstName, lastName, phone, email)
 	// building each row of the table with contact information
 	for(let i = 0; i < firstName.length; i++) 
 	{
-		table += "<tr data-contact-id='" + contactList[i].id + "'><td>" +
+		table += "<tr data-contact-id='" + contactId[i] + "'><td>" +
 		firstName[i] + "</td><td>" +
 		lastName[i] + "</td><td>" +
 		phone[i] + "</td><td>" +
@@ -217,8 +217,8 @@ function enableDelete()
 function deleteContact(button)
 {
 	let row = button.parentNode.parentNode;
-
 	let contactId = row.getAttribute("data-contact-id"); // contact id stored as data attribute on the row
+
 	let firstName = row.cells[0].innerHTML;
 	let lastName = row.cells[1].innerHTML;
 	let phone = row.cells[2].innerHTML;
@@ -227,11 +227,8 @@ function deleteContact(button)
 	console.log(firstName, lastName, phone, email);
 
 	let tmp = {
-		firstName: firstName,
-		lastName: lastName,
-		phone: phone,
-		email: email,
-		userId: userId
+		id: contactId,
+		userId: userId,
 	};
 	
 	let jsonPayload = JSON.stringify(tmp);
