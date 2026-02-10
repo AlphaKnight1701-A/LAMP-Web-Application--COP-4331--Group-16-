@@ -221,6 +221,8 @@ function deleteContact(button)
 	let phone = row.cells[2].innerHTML;
 	let email = row.cells[3].innerHTML;
 
+	console.log(firstName, lastName, phone, email);
+
 	let tmp = {
 		firstName: firstName,
 		lastName: lastName,
