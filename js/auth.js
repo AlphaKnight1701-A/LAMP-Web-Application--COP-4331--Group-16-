@@ -186,6 +186,16 @@ function searchContact()
 					contactInfo.phone, 
 					contactInfo.email
 				);
+
+				if (src == 0)
+				{
+					document.getElementById("contactList").innerHTML = buildTable;
+					document.getElementById("searchResults").innerHTML = "";
+				}
+				else
+				{
+					document.getElementById("searchResults").innerHTML = buildTable;
+				}
 			}
 		};
 		console.log(contactList)
