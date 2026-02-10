@@ -31,7 +31,7 @@
                     '","lastName":"' . $row["LastName"] .
                     '","phone":"' . $row["Phone"] .
                     '","email":"' . $row["Email"] .
-                    '","id":"' . $row["contactID"] .
+                    '","id":"' . $row["contactId"] .
                     '","userId":"' .
                     $row["UserID"] .
                     '"}';
