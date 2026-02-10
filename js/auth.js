@@ -137,8 +137,8 @@ function parseContact(contactList)
 function buildTable(firstName, lastName, phone, email) 
 {
 	// table header
-	let table = "<table><tr><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th></tr>";
-	
+	let table = "<table><tr><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Delete</th></tr>";
+	let deleteButton = "<button class='deleteButton' onclick='deleteContact(this)'>Delete</button>";
 	// building each row of the table with contact information
 	for(let i = 0; i < firstName.length; i++) 
 	{
@@ -146,7 +146,8 @@ function buildTable(firstName, lastName, phone, email)
 		firstName[i] + "</td><td>" +
 		lastName[i] + "</td><td>" +
 		phone[i] + "</td><td>" +
-		email[i] + "</td></tr>";
+		email[i] + "</td><td>" +
+		deleteButton + "</td></tr>";
 	}
 
 	// ending the table
@@ -210,6 +211,46 @@ function searchContact()
 function enableDelete()
 {
 	document.getElementById("deleteContactButton").classList.remove("hidden");
+}
+function deleteContact(button)
+{
+	let row = button.parentNode.parentNode;
+
+	let firstName = row.cells[0].innerHTML;
+	let lastName = row.cells[1].innerHTML;
+	let phone = row.cells[2].innerHTML;
+	let email = row.cells[3].innerHTML;
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		phone: phone,
+		email: email,
+		userId: userId
+	};
+	
+	let jsonPayload = JSON.stringify(tmp);
+	// send information over for removal from database
+	let url = baseUrl + "/DeleteContact." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				document.getElementById("deleteContactResult").innerHTML = "Contact deleted";
+				row.remove(); // Remove the row from the table
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		document.getElementById("deleteContactResult").innerHTML = err.message;
+	}
+
 }
 function addContact()
 {
