@@ -20,7 +20,7 @@ if ($connection->connect_error) {
 }
 // make an sql statement that deletes contacts with the given firstname, lastname, phone, email, given userid
 $sqlStatement = $connection->prepare("DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND Phone = ? AND Email = ? AND UserID = ?");
-$sqlStatement->bind_param("ssssii", $inputData["firstName"], $inputData["lastName"], $inputData["phone"], $inputData["email"], $inputData["userId"]);
+$sqlStatement->bind_param("ssssi", $inputData["firstName"], $inputData["lastName"], $inputData["phone"], $inputData["email"], $inputData["userId"]);
 
 if (!$sqlStatement->execute()) {
     returnWithError("SQL Error: " . $sqlStatement->error);
