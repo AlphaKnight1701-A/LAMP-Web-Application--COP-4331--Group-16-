@@ -207,7 +207,10 @@ function searchContact()
 	}
 	
 }
-
+function enableDelete()
+{
+	document.getElementById("deleteContactButton").classList.remove("hidden");
+}
 function addContact()
 {
 	let firstName = document.getElementById("addFirstName").value.trim();
