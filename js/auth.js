@@ -183,6 +183,7 @@ function searchContact()
 				let contactInfo = parseContact(jsonObject.results);
 				document.getElementsByTagName("p")[0].innerHTML = 
 				buildTable(
+					contactInfo.contactId,
 					contactInfo.firstName, 
 					contactInfo.lastName, 
 					contactInfo.phone, 
