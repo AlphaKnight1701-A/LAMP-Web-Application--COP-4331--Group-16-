@@ -117,7 +117,7 @@ function signup()
 // parse the contact list to send out lists of user contact information
 function parseContact(contactList) 
 {
-	
+	let contactId = [];
 	let firstName = [];
 	let lastName = [];
 	let phone = [];
@@ -125,13 +125,14 @@ function parseContact(contactList)
 	
 	for( let i=0; i<contactList.length; i++ ) 
 	{
+		contactId.push(contactList[i].id);
 		firstName.push(contactList[i].firstName);
 		lastName.push(contactList[i].lastName);
 		phone.push(contactList[i].phone);
 		email.push(contactList[i].email);
 	}
 
-	return {firstName, lastName, phone, email};
+	return {contactId, firstName, lastName, phone, email};
 }
 // build table to list contacts on the homepage
 function buildTable(firstName, lastName, phone, email) 
@@ -142,7 +143,7 @@ function buildTable(firstName, lastName, phone, email)
 	// building each row of the table with contact information
 	for(let i = 0; i < firstName.length; i++) 
 	{
-		table += "<tr><td>" +
+		table += "<tr data-contact-id='" + contactList[i].id + "'><td>" +
 		firstName[i] + "</td><td>" +
 		lastName[i] + "</td><td>" +
 		phone[i] + "</td><td>" +
@@ -216,6 +217,7 @@ function deleteContact(button)
 {
 	let row = button.parentNode.parentNode;
 
+	let contactId = row.getAttribute("data-contact-id"); // contact id stored as data attribute on the row
 	let firstName = row.cells[0].innerHTML;
 	let lastName = row.cells[1].innerHTML;
 	let phone = row.cells[2].innerHTML;
