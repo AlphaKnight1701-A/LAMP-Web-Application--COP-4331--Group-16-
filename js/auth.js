@@ -155,7 +155,7 @@ function buildTable(firstName, lastName, phone, email)
 }
 function searchContact()
 {
-	let srch = document.getElementById("contactList").value;
+	let srch = document.getElementById("searchText").value;
 	document.getElementById("contactSearchResult").innerHTML = "";
 	
 	let tmp = {search:srch,userId:userId};

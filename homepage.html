@@ -12,6 +12,8 @@
             document.addEventListener('DOMContentLoaded', function() 
             {
                 checkLogin();
+                document.getElementById("searchText").value = "";
+                searchContact();
             }, false);
         </script>
     </head>
@@ -34,6 +36,7 @@
              <div class = "max-w-2xl mt-8" >
                 <div class = "py-3 text-3xl underline"> Contacts List </div>
                 <div id="contactList" class="flex flex-col gap-3 mt-3"></div>
+             <div> </div>
              </div>
         </main>
     </body>
