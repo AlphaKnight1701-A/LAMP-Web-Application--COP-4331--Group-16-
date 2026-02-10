@@ -208,6 +208,57 @@ function searchContact()
 	
 }
 
+function addContact()
+{
+	let firstName = document.getElementById("addFirstName").value.trim();
+	let lastName = document.getElementById("addLastName").value.trim();
+	let phone = document.getElementById("addPhone").value.trim();
+	let email = document.getElementById("addEmail").value.trim();
+
+	if (firstName === "" || lastName === "") {
+		document.getElementById("addContactResult").innerHTML = "First and last name required";
+		return;
+	}
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		phone: phone,
+		email: email,
+		userId: userId
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = baseUrl + "/AddContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				document.getElementById("addContactResult").innerHTML = "Contact added";
+
+				// clear form
+				document.getElementById("addFirstName").value = "";
+				document.getElementById("addLastName").value = "";
+				document.getElementById("addPhone").value = "";
+				document.getElementById("addEmail").value = "";
+
+				// refresh contact list
+				searchContact();
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
+}
+
+
 function logout() {
 	// Expiry date is UNIX epoch
     document.cookie = "firstName=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";

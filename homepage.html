@@ -28,9 +28,54 @@
             <span id="contactSearchResult"></span>
             <br /><br />
 
-            <button class = "rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition">
-                Add contact
+            <!-- Add Contact Button -->
+            <button
+            class="rounded-md px-4 py-2 bg-yellow-400 text-sm text-white font-bold hover:bg-white hover:text-yellow-400 transition"
+            onclick="document.getElementById('addContactForm').classList.toggle('hidden')"
+            >
+            Add contact
             </button>
+
+            <!-- Add Contact Form -->
+            <div id="addContactForm" class="hidden mt-6 w-full max-w-md">
+            <input
+                id="addFirstName"
+                class="w-full mb-3 px-4 py-2 rounded-md"
+                type="text"
+                placeholder="First Name"
+            />
+
+            <input
+                id="addLastName"
+                class="w-full mb-3 px-4 py-2 rounded-md"
+                type="text"
+                placeholder="Last Name"
+            />
+
+            <input
+                id="addPhone"
+                class="w-full mb-3 px-4 py-2 rounded-md"
+                type="text"
+                placeholder="Phone"
+            />
+
+            <input
+                id="addEmail"
+                class="w-full mb-3 px-4 py-2 rounded-md"
+                type="text"
+                placeholder="Email"
+            />
+
+            <button
+                class="w-full rounded-md px-4 py-2 bg-yellow-400 text-white font-bold hover:bg-white hover:text-yellow-400 transition"
+                onclick="addContact();"
+            >
+                Save Contact
+            </button>
+
+            <span id="addContactResult" class="block mt-2"></span>
+            </div>
+
             
             <!-- Contact List -->
              <div class = "max-w-2xl mt-8" >
