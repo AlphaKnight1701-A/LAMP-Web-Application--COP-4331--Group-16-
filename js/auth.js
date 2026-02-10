@@ -233,7 +233,7 @@ function deleteContact(button)
 	
 	let jsonPayload = JSON.stringify(tmp);
 	// send information over for removal from database
-	let url = baseUrl + "/DeleteContact." + extension;
+	let url = baseUrl + "/DeleteContacts." + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
