@@ -242,7 +242,6 @@ function deleteContact(button)
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
-				document.getElementById("deleteContactResult").innerHTML = "Contact deleted";
 				row.remove(); // Remove the row from the table
 			}
 		};
