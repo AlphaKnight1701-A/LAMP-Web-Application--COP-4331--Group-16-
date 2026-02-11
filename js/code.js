@@ -241,6 +241,58 @@ function buildTable(contactId, firstName, lastName, phone, email)
 	return table;
 }
 
+// For getting contacts
+function buildContactsList(contacts, contactstListDiv) {
+	for (const contact of contacts) {
+		const card = document.createElement("contact-card");
+		card.contactId = contact.id;
+		card.firstName = contact.firstName;
+		card.lastName = contact.lastName;
+		card.email = contact.email;
+		card.phone = contact.phone;
+		contactstListDiv.appendChild(card);
+	}
+}
+
+// List contacts initially
+function getContacts() {
+	let tmp = {
+		userID: userId
+	};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = baseUrl + '/GetContacts.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				// List out all contacts for the user
+				let contacts = jsonObject.results; // array of contacts
+				let contactListDiv = document.getElementById("contactList");
+
+				if(contacts.length > 0) {
+					contactListDiv.innerHTML = ""; // clear old cards
+					buildContactsList(contacts, contactListDiv);
+				}
+				else {
+					document.getElementById("getContactsResult").innerHTML = "You have no contacts.";
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err) {
+		document.getElementById("getContactsResult").innerHTML = err.message;
+	}
+}
+
 function searchContact()
 {
 	let srch = document.getElementById("searchText").value;
