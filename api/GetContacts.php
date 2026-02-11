@@ -50,13 +50,26 @@
 	// For consistency across frontend
 	function toCamelCaseArray($array) {
 		$camelCaseArray = array();
+		
+		// Define exceptions
+		$exceptions = [
+			'ID' => 'id',
+			'UserID' => 'userId'
+		];
+
 		foreach ($array as $key => $value) {
-			// Convert first letter to lowercase
-			$camelKey = lcfirst($key);
+			if (isset($exceptions[$key])) {
+				$camelKey = $exceptions[$key];
+			} else {
+				// Convert first letter to lowercase
+				$camelKey = lcfirst($key);
+			}
 			$camelCaseArray[$camelKey] = $value;
 		}
+
 		return $camelCaseArray;
 	}
+
 
     
     // Function that Returns with Contact List
