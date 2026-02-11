@@ -13,25 +13,25 @@ class ContactCard extends HTMLElement {
 
     render() {
         this.innerHTML = `
-        <div class="flex flex-row justify-start items-center bg-[#2b2b2b] text-white max-w-full w-full px-8 py-5 rounded-lg">
-            <span class="material-symbols-outlined text-yellow-400 text-6xl!">account_circle</span>
-            <div class="px-5 flex flex-col">
-                <h1 class="font-bold text-2xl pb-2">${this.firstName} ${this.lastName}</h1>
-                <div class="flex flex-row">
-                <span class="material-symbols-outlined text-yellow-400">mail</span>
-                <h1 class="px-2"><span class="font-bold">Email:</span> ${this.email}</h1>
+        <div class="flex flex-col md:flex-row justify-start items-center md:items-start bg-[#2b2b2b] text-white max-w-full w-full px-6 py-5 rounded-lg gap-4">
+            <span class="material-symbols-outlined text-yellow-400 text-6xl! shrink-0">account_circle</span>
+            <div class="flex flex-col flex-1 min-w-0 w-full text-center md:text-left">
+                <h1 class="font-bold text-2xl pb-2 wrap-break-word">${this.firstName} ${this.lastName}</h1>
+                <div class="flex flex-row justify-center md:justify-start items-center gap-2">
+                    <span class="material-symbols-outlined text-yellow-400 text-sm">mail</span>
+                    <p class="truncate hover:text-clip hover:whitespace-normal break-all text-sm md:text-base">${this.email}</p>
                 </div>
-                <div class="flex flex-row">
-                <span class="material-symbols-outlined text-yellow-400">phone_in_talk</span>
-                <h1 class="px-2"><span class="font-bold">Phone:</span> ${this.phone}</h1>
+                <div class="flex flex-row justify-center md:justify-start items-center gap-2">
+                    <span class="material-symbols-outlined text-yellow-400 text-sm">phone_in_talk</span>
+                    <p class="wrap-break-word text-sm md:text-base">${this.phone}</p>
                 </div>
             </div>
-            <div class="ml-auto flex flex-col gap-2">
-                <button type="button" class="inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-yellow-400" aria-label="Edit">
-                    <span class="material-symbols-outlined font-4xl">person_edit</span>
+            <div class="flex flex-row md:flex-col gap-2 mt-4 md:mt-0 md:ml-auto">
+                <button type="button" class="inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-yellow-400 transition-colors" aria-label="Edit">
+                    <span class="material-symbols-outlined">person_edit</span>
                 </button>
-                <button type="button" class="inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-yellow-400" aria-label="Close">
-                    <span class="material-symbols-outlined font-4xl">close</span>
+                <button type="button" class="bg-red-600 inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-red-600 transition-colors" aria-label="Delete">
+                    <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
         </div>
