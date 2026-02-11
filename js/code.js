@@ -245,11 +245,12 @@ function buildTable(contactId, firstName, lastName, phone, email)
 function buildContactsList(contacts, contactstListDiv) {
 	for (const contact of contacts) {
 		const card = document.createElement("contact-card");
-		card.contactId = contact.id;
-		card.firstName = contact.firstName;
-		card.lastName = contact.lastName;
-		card.email = contact.email;
-		card.phone = contact.phone;
+		// Properties are captilaized as per GetContacts.php
+		card.contactId = contact.ID;
+		card.firstName = contact.FirstName;
+		card.lastName = contact.LastName;
+		card.email = contact.Email;
+		card.phone = contact.Phone;
 		contactstListDiv.appendChild(card);
 	}
 }
