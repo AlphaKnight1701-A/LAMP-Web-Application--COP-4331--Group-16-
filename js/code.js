@@ -245,12 +245,11 @@ function buildTable(contactId, firstName, lastName, phone, email)
 function buildContactsList(contacts, contactstListDiv) {
 	for (const contact of contacts) {
 		const card = document.createElement("contact-card");
-		// Properties are captilaized as per GetContacts.php
-		card.contactId = contact.ID;
-		card.firstName = contact.FirstName;
-		card.lastName = contact.LastName;
-		card.email = contact.Email;
-		card.phone = contact.Phone;
+		card.contactId = contact.id;
+		card.firstName = contact.firstName;
+		card.lastName = contact.lastName;
+		card.email = contact.email;
+		card.phone = contact.phone;
 		contactstListDiv.appendChild(card);
 	}
 }
@@ -305,6 +304,12 @@ function searchContact()
     console.log(jsonPayload);
 
 	let url = baseUrl + '/SearchContacts.' + extension;
+
+	// Check empty search field first
+	if (srch === "") {
+		document.getElementById("contactSearchResult").innerHTML = "You must type something in the search field first.";
+		return;
+	}
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -315,32 +320,22 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 
-				// building the table with the information retrieved
-				let contactInfo = parseContact(jsonObject.results);
-				document.getElementsByTagName("p")[0].innerHTML = 
-				buildTable(
-					contactInfo.contactId,
-					contactInfo.firstName, 
-					contactInfo.lastName, 
-					contactInfo.phone, 
-					contactInfo.email
-				);
+				// Build contacts list with search results
+				let contacts = jsonObject.results;
+				let contactListDiv = document.getElementById("contactList");
 
-				if (src == 0)
-				{
-					document.getElementById("contactList").innerHTML = buildTable;
-					document.getElementById("searchResults").innerHTML = "";
+				if(contacts.length > 0) {
+					document.getElementById("contactSearchResult").innerHTML = `Found ${contacts.length} result(s)`;
+					contactListDiv.innerHTML = ""; // clear old cards
+					buildContactsList(contacts, contactListDiv);
 				}
-				else
-				{
-					document.getElementById("searchResults").innerHTML = buildTable;
+				else {
+					document.getElementById("contactSearchResult").innerHTML = `No contacts found.`;	
 				}
 			}
 		};
-		console.log(contactList)
 		xhr.send(jsonPayload);
 	}
 	catch(err)
