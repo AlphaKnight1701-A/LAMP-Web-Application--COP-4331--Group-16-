@@ -13,7 +13,7 @@ class ContactCard extends HTMLElement {
 
     render() {
         this.innerHTML = `
-        <div class="flex flex-row justify-start items-center bg-[#2b2b2b] text-white max-w-full w-lg px-8 py-5 rounded-lg">
+        <div class="flex flex-row justify-start items-center bg-[#2b2b2b] text-white max-w-full w-full px-8 py-5 rounded-lg">
             <span class="material-symbols-outlined text-yellow-400 text-6xl!">account_circle</span>
             <div class="px-5 flex flex-col">
                 <h1 class="font-bold text-2xl pb-2">${this.firstName} ${this.lastName}</h1>
