@@ -25,7 +25,9 @@
 	while($row = $result->fetch_assoc())
 	{
 		// Pushes Fetched Row to Contacts Array and Increments Search Count
-		array_push($contacts, $row);
+		// Convert row keys to camelCase before adding to contacts
+		$rowCamelCase = toCamelCaseArray($row);
+		array_push($contacts, $rowCamelCase);
 		$searchCount++;
 	}
 
@@ -44,6 +46,18 @@
 	// Closes SQL Statement
 	$sqlStatement->close();
     $connection->close();
+
+	// For consistency across frontend
+	function toCamelCaseArray($array) {
+		$camelCaseArray = array();
+		foreach ($array as $key => $value) {
+			// Convert first letter to lowercase
+			$camelKey = lcfirst($key);
+			$camelCaseArray[$camelKey] = $value;
+		}
+		return $camelCaseArray;
+	}
+
     
     // Function that Returns with Contact List
 	function returnWithInfoList($contacts)
