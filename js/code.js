@@ -273,16 +273,23 @@ function getContacts() {
 			{
 				let jsonObject = JSON.parse(xhr.responseText);
 
+				// If no contacts are available for the user
+				// error is always in the response regardless
+				let emptyError = jsonObject.error;
+
 				// List out all contacts for the user
 				let contacts = jsonObject.results; // array of contacts
 				let contactListDiv = document.getElementById("contactList");
 
-				if(contacts.length > 0) {
+				// If emtpyError is not empty, then there are no contacts as per endpoint
+				if(emptyError.length != 0) {
+					contactListDiv.innerHTML = ""; // clear old cards
+					document.getElementById("getContactsResult").innerHTML = "You have no contacts.";
+				}
+				// Otherwise, there are guaranteed to be contacts
+				else {
 					contactListDiv.innerHTML = ""; // clear old cards
 					buildContactsList(contacts, contactListDiv);
-				}
-				else {
-					document.getElementById("getContactsResult").innerHTML = "You have no contacts.";
 				}
 			}
 		};
