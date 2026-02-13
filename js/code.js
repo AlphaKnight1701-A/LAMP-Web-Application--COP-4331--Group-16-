@@ -422,16 +422,19 @@ function addContact()
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
-				document.getElementById("addContactResult").innerHTML = "Contact added";
-
 				// clear form
 				document.getElementById("addFirstName").value = "";
 				document.getElementById("addLastName").value = "";
 				document.getElementById("addPhone").value = "";
 				document.getElementById("addEmail").value = "";
 
+				const successDialog = document.getElementById("addSuccessDialog");
+				animateOpenDialog(successDialog);
+
 				// refresh contact list
 				getContacts();
+
+				animateCloseDialog(successDialog);
 			}
 		};
 
