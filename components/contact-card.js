@@ -75,8 +75,8 @@ class ContactCard extends HTMLElement {
                     <p class="truncate min-w-0 flex-1">${this.phone}</p>
                 </div>
                 <div class="flex flex-col gap-3 px-5">
-                    <button id="confirmDelete" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-red-600 text-white hover:bg-white hover:text-red-600" disabled>Delete Contact</button>
-                    <button id="cancel" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-yellow-400 text-white hover:bg-white hover:text-yellow-400" disabled>Cancel</button>
+                    <button id="confirmDelete" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-red-600 text-white hover:bg-white hover:text-red-600">Delete Contact</button>
+                    <button id="cancel" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-yellow-400 text-white hover:bg-white hover:text-yellow-400">Cancel</button>
                 </div>
             </div>
         </dialog>
