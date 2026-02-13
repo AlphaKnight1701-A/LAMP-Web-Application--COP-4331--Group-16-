@@ -289,6 +289,7 @@ function getContacts() {
 				// Otherwise, there are guaranteed to be contacts
 				else {
 					contactListDiv.innerHTML = ""; // clear old cards
+					document.getElementById("getContactsResult").innerHTML = "Your Contacts";
 					buildContactsList(contacts, contactListDiv);
 				}
 			}
