@@ -66,7 +66,7 @@ class ContactCard extends HTMLElement {
         this.querySelector("#confirmDelete").addEventListener("click", () => {
             // Close dialog when deleting
             dialog.close();
-            // deleteContact();
+            deleteContact();
         });
     }
 
