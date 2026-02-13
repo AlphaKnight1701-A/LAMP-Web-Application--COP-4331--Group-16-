@@ -370,13 +370,20 @@ function deleteContact(contactId) {
 				// Show success dialog
 				const successDialog = document.getElementById("deleteSuccessDialog");
 				successDialog.showModal();
+				requestAnimationFrame(() => {
+					successDialog.classList.remove("opacity-0", "scale-80");
+				});
 
 				// Refetch contacts after delete
 				getContacts();
 				
 				// Close dialog after three seconds
 				setTimeout(() => {
-					successDialog.close();
+					// Closing animation
+					successDialog.classList.add("opacity-0", "scale-80");
+					setTimeout(() => {
+						successDialog.close();
+					}, 300);
 				}, 3000);
 			}
 		};
