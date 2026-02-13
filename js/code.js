@@ -367,8 +367,17 @@ function deleteContact(contactId) {
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
+				// Show success dialog
+				const successDialog = document.getElementById("deleteSuccessDialog");
+				successDialog.showModal();
+
 				// Refetch contacts after delete
 				getContacts();
+				
+				// Close dialog after three seconds
+				setTimeout(() => {
+					successDialog.close();
+				}, 3000);
 			}
 		};
 		xhr.send(jsonPayload);
