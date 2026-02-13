@@ -377,22 +377,12 @@ function deleteContact(contactId) {
 			if (this.readyState === 4 && this.status === 200) {
 				// Show success dialog
 				const successDialog = document.getElementById("deleteSuccessDialog");
-				successDialog.showModal();
-				requestAnimationFrame(() => {
-					successDialog.classList.remove("opacity-0", "scale-80");
-				});
+				animateOpenDialog(successDialog);
 
 				// Refetch contacts after delete
 				getContacts();
 				
-				// Close dialog after three seconds
-				setTimeout(() => {
-					// Closing animation
-					successDialog.classList.add("opacity-0", "scale-80");
-					setTimeout(() => {
-						successDialog.close();
-					}, 300);
-				}, 3000);
+				animateCloseDialog(successDialog);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -450,4 +440,21 @@ function addContact()
 	catch (err) {
 		document.getElementById("addContactResult").innerHTML = err.message;
 	}
+}
+
+function animateOpenDialog(dialog) {
+	dialog.showModal();
+	requestAnimationFrame(() => {
+		dialog.classList.remove("opacity-0", "scale-80");
+	});
+}
+
+function animateCloseDialog(dialog) {
+	setTimeout(() => {
+		// Closing animation
+		dialog.classList.add("opacity-0", "scale-80");
+		setTimeout(() => {
+			dialog.close();
+		}, 300);
+	}, 3000);
 }
