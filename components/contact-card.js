@@ -133,7 +133,7 @@ class ContactCard extends HTMLElement {
 
             // Collect fields for edit
             const editFirstName = this.querySelector("#editFirstName").value;
-            const editLasttName = this.querySelector("#editLasttName").value;
+            const editLasttName = this.querySelector("#editLastName").value;
             const editEmail = this.querySelector("#editEmail").value;
             const editPhone = this.querySelector("#editPhone").value;
 
