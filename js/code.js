@@ -426,7 +426,7 @@ function addContact()
 				document.getElementById("addEmail").value = "";
 
 				// refresh contact list
-				searchContact();
+				getContacts();
 			}
 		};
 
