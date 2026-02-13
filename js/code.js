@@ -350,18 +350,7 @@ function enableDelete()
 	document.getElementById("deleteContactButton").classList.remove("hidden");
 }
 
-function deleteContact(button)
-{
-	let row = button.parentNode.parentNode;
-	let contactId = row.getAttribute("data-contact-id"); // contact id stored as data attribute on the row
-
-	let firstName = row.cells[0].innerHTML;
-	let lastName = row.cells[1].innerHTML;
-	let phone = row.cells[2].innerHTML;
-	let email = row.cells[3].innerHTML;
-
-	console.log(firstName, lastName, phone, email);
-
+function deleteContact(contactId) {
 	let tmp = {
 		id: contactId,
 		userId: userId,
@@ -378,16 +367,15 @@ function deleteContact(button)
 	try {
 		xhr.onreadystatechange = function () {
 			if (this.readyState === 4 && this.status === 200) {
-				row.remove(); // Remove the row from the table
+				// Refetch contacts after delete
+				getContacts();
 			}
 		};
-
 		xhr.send(jsonPayload);
 	}
 	catch (err) {
 		document.getElementById("deleteContactResult").innerHTML = err.message;
 	}
-
 }
 
 function addContact()
