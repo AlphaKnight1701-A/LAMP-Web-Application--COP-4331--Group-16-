@@ -37,16 +37,25 @@ class ContactCard extends HTMLElement {
         </div>
 
         <!-- Delete dialog -->
-        <dialog id="deleteDialog" class="m-auto rounded-md p-0 border-none bg-transparent backdrop:bg-black/80">
-            <div class="flex flex-col p-10 justify-center items-center bg-[#2b2b2b] rounded-lg text-center">
+        <dialog id="deleteDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
+            <div class="flex flex-col py-10 px-5 sm:px-10 justify-center items-center bg-[#2b2b2b] rounded-lg text-center">
             <span class="material-symbols-outlined text-6xl! text-yellow-400 pb-3">warning</span>
                 <h1 class="text-xl font-bold text-white pb-3">Are you sure you want to delete this contact?</h1>
-                <p class="text-gray-400">${this.firstName} ${this.lastName}</p>
-                <p class="text-gray-400">${this.email}</p>
-                <p class="text-gray-400 pb-5">${this.phone}</p>
+                <div class="flex flex-row gap-2 items-center text-gray-400 max-w-full">
+                    <span class="material-symbols-outlined">person</span>
+                    <p class="truncate min-w-0 flex-1">${this.firstName} ${this.lastName}</p>
+                </div>
+                <div class="flex flex-row gap-2 items-center text-gray-400 max-w-full">
+                    <span class="material-symbols-outlined">mail</span>
+                    <p class="truncate min-w-0 flex-1">${this.email}</p>
+                </div>
+                <div class="flex flex-row gap-2 items-center text-gray-400 max-w-full pb-5">
+                    <span class="material-symbols-outlined">phone_in_talk</span>
+                    <p class="truncate min-w-0 flex-1">${this.phone}</p>
+                </div>
                 <div class="flex flex-col gap-3 px-5">
-                    <button id="confirmDelete" class="max-w-md w-full sm:w-md py-1 px-5 rounded-md bg-red-600 text-white hover:bg-white hover:text-red-600">Delete Contact</button>
-                    <button id="cancel" class="max-w-md w-full sm:w-md py-1 px-5 rounded-md bg-yellow-400 text-white hover:bg-white hover:text-yellow-400">Cancel</button>
+                    <button id="confirmDelete" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-red-600 text-white hover:bg-white hover:text-red-600">Delete Contact</button>
+                    <button id="cancel" class="max-w-md w-full sm:w-md py-2 px-5 rounded-md font-bold bg-yellow-400 text-white hover:bg-white hover:text-yellow-400">Cancel</button>
                 </div>
             </div>
         </dialog>
@@ -58,16 +67,27 @@ class ContactCard extends HTMLElement {
         // Delete contact behavior
         this.querySelector("#deleteButton").addEventListener("click", () => {
             dialog.showModal();
+            // animate transition
+            requestAnimationFrame(() => {
+                dialog.classList.remove("opacity-0", "scale-80");
+            });
         });
 
         this.querySelector("#cancel").addEventListener("click", () => {
-            dialog.close();
+            dialog.classList.add("opacity-0", "scale-80");
+            // wait for animation before actually closing
+            setTimeout(() => {
+                dialog.close();
+            }, 300);
         });
 
         this.querySelector("#confirmDelete").addEventListener("click", () => {
-            // Close dialog when deleting
-            dialog.close();
             deleteContact(this.contactId);
+            dialog.classList.add("opacity-0", "scale-80");
+            // wait for animation before actually closing
+            setTimeout(() => {
+                dialog.close();
+            }, 300);
         });
     }
 
