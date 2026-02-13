@@ -5,12 +5,13 @@ error_reporting(E_ALL);
 
 $inputData = getRequestInfo();
 
-if (!isset($inputData["id"])) {
-    returnWithError("Missing id");
+if (!isset($inputData["id"], $inputData["userId"])) {
+    returnWithError("Missing id or user id");
     exit();
 }
 
 $id = $inputData["id"];
+$userId = $inputData["userId"];
 
 $connection = new mysqli("localhost", "GOAT", "ILoveLamp", "COP4331");
 
