@@ -449,11 +449,11 @@ function editContact(firstName, lastName, email, phone, contactId) {
 
 	let tmp = {
 		id: contactId,
+		userId: userId,
 		firstName: firstName,
 		lastName: lastName,
 		phone: phone,
 		email: email,
-		userId: userId
 	};
 
 	let jsonPayload = JSON.stringify(tmp);
