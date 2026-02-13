@@ -40,20 +40,18 @@ class ContactCard extends HTMLElement {
         <dialog id="editDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
             <div class="flex flex-col py-5 px-5 sm:px-10 justify-center items-center bg-[#2b2b2b] rounded-lg max-w-full w-lg">
                 <h1 class="text-xl font-bold text-white pb-5">Edit contact</h1>
-                <form>
-                    <input id="editFirstName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="First Name" value="${this.firstName}"/>
-                    <input id="editLastName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Last Name" value="${this.lastName}"/>
-                    <input id="editEmail" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Email" value="${this.email}"/>
-                    <input id="editPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" value="${this.phone}"/>
-                    <div class="flex flex-col gap-3 pt-3 w-full">
-                        <button id="confirmEdit" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all">
-                            Save Updates
-                        </button>
-                        <button id="cancelEdit" class="w-full rounded-md px-4 py-2 bg-red-600 text-white font-bold hover:bg-white hover:text-red-600 transition">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
+                <input id="editFirstName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="First Name" value="${this.firstName}"/>
+                <input id="editLastName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Last Name" value="${this.lastName}"/>
+                <input id="editEmail" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Email" value="${this.email}"/>
+                <input id="editPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" value="${this.phone}"/>
+                <div class="flex flex-col gap-3 pt-3 w-full">
+                    <button id="confirmEdit" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all">
+                        Save Updates
+                    </button>
+                    <button id="cancelEdit" class="w-full rounded-md px-4 py-2 bg-red-600 text-white font-bold hover:bg-white hover:text-red-600 transition">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </dialog>
 
