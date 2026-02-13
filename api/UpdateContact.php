@@ -9,7 +9,8 @@
         !isset($inputData["lastName"]) ||
         !isset($inputData["email"]) ||
         !isset($inputData["phone"]) ||
-        !isset($inputData["userId"])
+        !isset($inputData["userId"]) ||
+        !isset($inputData["id"])
     ) {
         returnWithError("Missing required fields");
         exit();
@@ -21,6 +22,7 @@
     $email     = trim($inputData["email"]);
     $phone     = trim($inputData["phone"]);
     $userId    = $inputData["userId"];
+    $id        = $inputData["id"]; 
 
     if ($connection->connect_error)
     {
@@ -28,12 +30,12 @@
     }
     else
     {
-        // Prepare INSERT
+        // Prepare UPDATE
         $sqlStatement = $connection->prepare(
-            "INSERT INTO Contacts (UserID, FirstName, LastName, Email, Phone) VALUES (?, ?, ?, ?, ?)"
+            "UPDATE Contacts SET FirstName=?, LastName=?, Email=?, Phone=? WHERE UserID=? AND ID=?"
         );
 
-        $sqlStatement->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
+        $sqlStatement->bind_param("ssssii", $firstName, $lastName, $email, $phone, $userId, $inputData["id"]);
 
         if (!$sqlStatement->execute()) {
             returnWithError("SQL Error: " . $sqlStatement->error);
@@ -41,7 +43,7 @@
         }
 
         // Get the new contact ID
-        $newId = $connection->insert_id;
+        $newId = $inputData["id"];
 
         // Return success object
         returnWithInfo($newId, $firstName, $lastName, $phone, $email, $userId);
