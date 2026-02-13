@@ -39,6 +39,7 @@ class ContactCard extends HTMLElement {
         <!-- Delete dialog -->
         <dialog id="deleteDialog" class="m-auto rounded-md p-0 border-none bg-transparent backdrop:bg-black/80">
             <div class="flex flex-col p-10 justify-center items-center bg-[#2b2b2b] rounded-lg text-center">
+            <span class="material-symbols-outlined text-xl text-yellow-400 pb-3">warning</span>
                 <h1 class="text-xl font-bold text-white pb-3">Are you sure you want to delete this contact?</h1>
                 <p class="text-gray-400">${this.firstName} ${this.lastName}</p>
                 <p class="text-gray-400">${this.email}</p>
