@@ -82,12 +82,13 @@ class ContactCard extends HTMLElement {
         });
 
         this.querySelector("#confirmDelete").addEventListener("click", () => {
-            deleteContact(this.contactId);
             dialog.classList.add("opacity-0", "scale-80");
             // wait for animation before actually closing
             setTimeout(() => {
                 dialog.close();
             }, 300);
+            // Delete contact AFTER closing dialog, since deleteContact() opens another dialog
+            deleteContact(this.contactId);
         });
     }
 
