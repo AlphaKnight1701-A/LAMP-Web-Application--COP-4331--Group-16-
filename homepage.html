@@ -13,7 +13,7 @@
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() 
             {
-                checkLogin();
+                // checkLogin();
                 document.getElementById("searchText").value = "";
                 getContacts();
             }, false);
@@ -110,7 +110,7 @@
                 <input id="addEmail" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Email" oninput="validateAddForm();"/>
                 <input id="addPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" oninput="validateAddForm();"/>
                 <div class="flex flex-col gap-3 pt-3 w-full">
-                    <button id="confirmAdd" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all" onclick="confirmAdd();" disabled>
+                    <button id="confirmAdd" class="w-full rounded-md px-4 py-2 bg-gray-400 cursor-not-allowed text-white font-bold transition-all" onclick="confirmAdd();" disabled>
                         Add Contact
                     </button>
                     <!-- Carries out add -->
