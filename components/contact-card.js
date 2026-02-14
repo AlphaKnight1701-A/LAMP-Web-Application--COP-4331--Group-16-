@@ -46,7 +46,7 @@ class ContactCard extends HTMLElement {
                 <input id="editPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" value="${this.phone}"/>
                 <div class="flex flex-col gap-3 pt-3 w-full">
                     <button id="confirmEdit" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all">
-                        Save Updates
+                        Save Changes
                     </button>
                     <button id="cancelEdit" class="w-full rounded-md px-4 py-2 bg-red-600 text-white font-bold hover:bg-white hover:text-red-600 transition">
                         Cancel
