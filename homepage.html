@@ -38,14 +38,22 @@
             <!-- Add Contact Button -->
             <button
             class="flex flex-row items-center justify-center rounded-md px-4 py-2 bg-yellow-400 text-md text-white font-bold hover:bg-white hover:text-yellow-400 transition"
-            onclick="document.getElementById('addContactForm').classList.toggle('hidden')"
+            onclick="showAddDialog();"
             >
+            <script>
+                function showAddDialog() {
+                    document.getElementById('addDialog').showModal();
+                    requestAnimationFrame(() => {
+                        document.getElementById('addDialog').classList.remove("opacity-0", "scale-80");
+                    });
+                }
+            </script>
             <span class="material-symbols-outlined pr-2">add</span>
             Add contact
             </button>
 
             <!-- Add Contact Form -->
-            <div id="addContactForm" class="hidden mt-6 w-full max-w-md">
+            <!-- <div id="addContactForm" class="hidden mt-6 w-full max-w-md">
             <input
                 id="addFirstName"
                 class="w-full mb-3 px-4 py-2 rounded-md"
@@ -81,7 +89,7 @@
                 Save Contact
             </button>
 
-            </div>
+            </div> -->
 
             
             <!-- Contact List -->
@@ -92,6 +100,65 @@
                 <div id="contactList" class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-5 mt-3"></div>
              </div>
         </main>
+
+        <!-- Add dialog -->
+        <dialog id="addDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
+            <div class="flex flex-col py-5 px-5 sm:px-10 justify-center items-center bg-[#2b2b2b] rounded-lg max-w-full w-lg">
+                <h1 class="text-xl font-bold text-white pb-5">Add contact</h1>
+                <input id="addFirstName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="First Name" oninput="validateAddForm();"/>
+                <input id="addLastName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Last Name" oninput="validateAddForm();"/>
+                <input id="addEmail" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Email" oninput="validateAddForm();"/>
+                <input id="addPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" oninput="validateAddForm();"/>
+                <div class="flex flex-col gap-3 pt-3 w-full">
+                    <button id="confirmAdd" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all" disabled>
+                        Add Contact
+                    </button>
+                    <!-- Carries out add -->
+                    <script>
+                        function confirmAdd() {
+                            document.getElementById('addDialog').classList.add("opacity-0", "scale-80");
+                            // wait for animation before actually closing
+                            setTimeout(() => {
+                                document.getElementById('addDialog').close();
+                            }, 300);
+                            addContact();
+                        }
+                    </script>
+                    <button id="cancelAdd" class="w-full rounded-md px-4 py-2 bg-red-600 text-white font-bold hover:bg-white hover:text-red-600 transition" onclick="closeAddDialog();">
+                        Cancel
+                    </button>
+                    <script>
+                        function closeAddDialog() {
+                            document.getElementById('addDialog').classList.add("opacity-0", "scale-80");
+                            // wait for animation before actually closing
+                            setTimeout(() => {
+                                document.getElementById('addDialog').close();
+                            }, 300);
+                        }
+                    </script>
+                    <!-- Validates all input fields, makes sure none is empty -->
+                    <script>
+                        function validateAddForm() {
+                            const firstName = document.getElementById("addFirstName").value.trim();
+                            const lastName = document.getElementById("addLastName").value.trim();
+                            const email = document.getElementById("addEmail").value.trim();
+                            const phone = document.getElementById("addPhone").value.trim();
+                            const confirmButton = document.getElementById("confirmAdd");
+
+                            if (firstName && lastName && email && phone) {
+                                confirmButton.disabled = false;
+                                confirmButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+                                confirmButton.classList.add("bg-green-600", "hover:bg-white", "hover:text-green-600");
+                            } else {
+                                confirmButton.disabled = true;
+                                confirmButton.classList.remove("bg-green-600", "hover:bg-white", "hover:text-green-600");
+                                confirmButton.classList.add("bg-gray-400", "cursor-not-allowed");
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </dialog>
 
         <!-- Successful deletion dialog -->
         <dialog id="deleteSuccessDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
