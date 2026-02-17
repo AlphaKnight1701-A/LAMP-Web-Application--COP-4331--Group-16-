@@ -3,7 +3,7 @@
 /* Custom styles here if needed */
 @layer base {
   body {
-    @apply bg-[#1c1c1c];
+    @apply bg-[#F59E0B];
     @apply text-yellow-500;
   }
   input {
