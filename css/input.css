@@ -9,10 +9,12 @@
   input {
     @apply border-[#6b6b6b];
     @apply outline-2;
-    @apply text-[#6b6b6b];
+    @apply text-[#7b7b7b];
   }
   button {
-    @apply bg-yellow-400;
+    @apply bg-yellow-500;
     @apply text-white;
+    @apply hover:bg-white;
+    @apply hover:text-yellow-500
   }
 }
