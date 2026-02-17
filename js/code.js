@@ -445,6 +445,44 @@ function addContact()
 	}
 }
 
+function editContact(firstName, lastName, email, phone, contactId) {
+
+	let tmp = {
+		id: contactId,
+		userId: userId,
+		firstName: firstName,
+		lastName: lastName,
+		phone: phone,
+		email: email,
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+	let url = baseUrl + "/UpdateContact." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				const successDialog = document.getElementById("editSuccessDialog");
+				animateOpenDialog(successDialog);
+
+				// refresh contact list
+				getContacts();
+
+				animateCloseDialog(successDialog);
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch (err) {
+		console.log(err.message);
+		return;
+	}
+}
+
 function animateOpenDialog(dialog) {
 	dialog.showModal();
 	requestAnimationFrame(() => {

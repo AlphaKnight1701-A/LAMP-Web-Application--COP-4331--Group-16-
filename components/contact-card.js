@@ -27,7 +27,7 @@ class ContactCard extends HTMLElement {
                 </div>
             </div>
             <div class="flex flex-row md:flex-col gap-2 mt-4 md:mt-0 md:ml-auto">
-                <button type="button" class="inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-yellow-400 transition-colors" aria-label="Edit">
+                <button type="button" id="editButton" class="inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-yellow-400 transition-colors" aria-label="Edit">
                     <span class="material-symbols-outlined">person_edit</span>
                 </button>
                 <button type="button" class="bg-red-600 inline-flex items-center justify-center w-12 h-12 rounded-md hover:bg-white hover:text-red-600 transition-colors" id="deleteButton" aria-label="Delete">
@@ -35,6 +35,25 @@ class ContactCard extends HTMLElement {
                 </button>
             </div>
         </div>
+
+        <!-- Edit dialog form -->
+        <dialog id="editDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
+            <div class="flex flex-col py-5 px-5 sm:px-10 justify-center items-center bg-[#2b2b2b] rounded-lg max-w-full w-lg">
+                <h1 class="text-xl font-bold text-white pb-5">Edit contact</h1>
+                <input id="editFirstName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="First Name" value="${this.firstName}"/>
+                <input id="editLastName" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Last Name" value="${this.lastName}"/>
+                <input id="editEmail" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Email" value="${this.email}"/>
+                <input id="editPhone" class="w-full mb-3 px-4 py-2 rounded-md" type="text" placeholder="Phone" value="${this.phone}"/>
+                <div class="flex flex-col gap-3 pt-3 w-full">
+                    <button id="confirmEdit" class="w-full rounded-md px-4 py-2 bg-green-600 text-white font-bold hover:bg-white hover:text-green-600 transition-all">
+                        Save Changes
+                    </button>
+                    <button id="cancelEdit" class="w-full rounded-md px-4 py-2 bg-red-600 text-white font-bold hover:bg-white hover:text-red-600 transition">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </dialog>
 
         <!-- Delete dialog -->
         <dialog id="deleteDialog" class="m-auto rounded-md px-3 border-none opacity-0 scale-80 transition-all duration-300 bg-transparent backdrop:bg-black/50 backdrop:backdrop-blur-sm">
@@ -62,35 +81,99 @@ class ContactCard extends HTMLElement {
         `;
 
         // Delete dialog
-        const dialog = this.querySelector("#deleteDialog");
+        const deleteDialog = this.querySelector("#deleteDialog");
 
         // Delete contact behavior
         this.querySelector("#deleteButton").addEventListener("click", () => {
-            dialog.showModal();
+            deleteDialog.showModal();
             // animate transition
             requestAnimationFrame(() => {
-                dialog.classList.remove("opacity-0", "scale-80");
+                deleteDialog.classList.remove("opacity-0", "scale-80");
             });
         });
 
         this.querySelector("#cancel").addEventListener("click", () => {
-            dialog.classList.add("opacity-0", "scale-80");
+            deleteDialog.classList.add("opacity-0", "scale-80");
             // wait for animation before actually closing
             setTimeout(() => {
-                dialog.close();
+                deleteDialog.close();
             }, 300);
         });
 
         this.querySelector("#confirmDelete").addEventListener("click", () => {
-            dialog.classList.add("opacity-0", "scale-80");
+            deleteDialog.classList.add("opacity-0", "scale-80");
             // wait for animation before actually closing
             setTimeout(() => {
-                dialog.close();
+                deleteDialog.close();
             }, 300);
             // Delete contact AFTER closing dialog, since deleteContact() opens another dialog
             deleteContact(this.contactId);
         });
+
+        // Edit dialog
+        const editDialog = this.querySelector("#editDialog");
+
+        // Edit dialog behavior
+        this.querySelector("#editButton").addEventListener("click", () => {
+            editDialog.showModal();
+            // animate transition
+            requestAnimationFrame(() => {
+                editDialog.classList.remove("opacity-0", "scale-80");
+            });
+        });
+
+        this.querySelector("#confirmEdit").addEventListener("click", () => {
+            editDialog.classList.add("opacity-0", "scale-80");
+            // wait for animation before actually closing
+            setTimeout(() => {
+                editDialog.close();
+            }, 300);
+
+            // Collect fields for edit
+            const editFirstName = this.querySelector("#editFirstName").value;
+            const editLasttName = this.querySelector("#editLastName").value;
+            const editEmail = this.querySelector("#editEmail").value;
+            const editPhone = this.querySelector("#editPhone").value;
+
+            editContact(editFirstName, editLasttName, editEmail, editPhone, this.contactId);
+        });
+
+        this.querySelector("#cancelEdit").addEventListener("click", () => {
+            editDialog.classList.add("opacity-0", "scale-80");
+            // wait for animation before actually closing
+            setTimeout(() => {
+                editDialog.close();
+            }, 300);
+        });
+
+        // Form validation
+        const inputs = this.querySelectorAll("#editFirstName, #editLastName, #editEmail, #editPhone");
+        inputs.forEach(input => {
+            input.addEventListener("input", () => this.validateForm());
+        });
+
     }
+
+    // Edit form validator
+    validateForm() {
+        const firstName = this.querySelector("#editFirstName").value.trim();
+        const lastName = this.querySelector("#editLastName").value.trim();
+        const email = this.querySelector("#editEmail").value.trim();
+        const phone = this.querySelector("#editPhone").value.trim();
+
+        const confirmButton = this.querySelector("#confirmEdit");
+
+        if (firstName && lastName && email && phone) {
+            confirmButton.disabled = false;
+            confirmButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+            confirmButton.classList.add("bg-green-600", "hover:bg-white", "hover:text-green-600");
+        } else {
+            confirmButton.disabled = true;
+            confirmButton.classList.remove("bg-green-600", "hover:bg-white", "hover:text-green-600");
+            confirmButton.classList.add("bg-gray-400", "cursor-not-allowed");
+        }
+    }
+
 
     // Getters and setters
     // Used for deleting/updating contacts
