@@ -4,7 +4,7 @@
 @layer base {
   body {
     @apply bg-[#1c1c1c];
-    @apply text-yellow-400;
+    @apply text-yellow-500;
   }
   input {
     @apply border-[#6b6b6b];
